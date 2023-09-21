@@ -92,3 +92,21 @@ require (
 	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/tools v0.12.0 // indirect
 )
+
+replace github.com/nomic-ai/gpt4all/gpt4all-bindings/golang => /mnt/data1/2023/09/16/LocalAI/gpt4all/gpt4all-bindings/golang
+
+replace github.com/go-skynet/go-ggml-transformers.cpp => /mnt/data1/2023/09/16/LocalAI/go-ggml-transformers
+
+replace github.com/donomii/go-rwkv.cpp => /mnt/data1/2023/09/16/LocalAI/go-rwkv
+
+replace github.com/ggerganov/whisper.cpp => /mnt/data1/2023/09/16/LocalAI/whisper.cpp
+
+replace github.com/go-skynet/go-bert.cpp => /mnt/data1/2023/09/16/LocalAI/go-bert
+
+replace github.com/go-skynet/bloomz.cpp => /mnt/data1/2023/09/16/LocalAI/bloomz
+
+replace github.com/mudler/go-stable-diffusion => /mnt/data1/2023/09/16/LocalAI/go-stable-diffusion
+
+replace github.com/mudler/go-piper => /mnt/data1/2023/09/16/LocalAI/go-piper
+
+replace github.com/mudler/go-ggllm.cpp => /mnt/data1/2023/09/16/LocalAI/go-ggllm
