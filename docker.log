@@ -1,0 +1,560 @@
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"BUILD_TYPE\" build argument. Try adding \"--build-arg BUILD_TYPE=<VALUE>\" to the command line"
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"TARGETARCH\" build argument. Try adding \"--build-arg TARGETARCH=<VALUE>\" to the command line"
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"TARGETVARIANT\" build argument. Try adding \"--build-arg TARGETVARIANT=<VALUE>\" to the command line"
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"FFMPEG\" build argument. Try adding \"--build-arg FFMPEG=<VALUE>\" to the command line"
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"BUILD_TYPE\" build argument. Try adding \"--build-arg BUILD_TYPE=<VALUE>\" to the command line"
+time="2023-09-21T09:00:17-04:00" level=warning msg="missing \"TARGETARCH\" build argument. Try adding \"--build-arg TARGETARCH=<VALUE>\" to the command line"
+[1/3] STEP 1/30: FROM golang:1.21-bullseye AS requirements
+[1/3] STEP 2/30: ARG BUILD_TYPE
+--> Using cache 88b369d4f3cb920a71ff03d954c663ed7b2dd7ecec4a2e4f72728d4ec11aafff
+--> 88b369d4f3c
+[1/3] STEP 3/30: ARG CUDA_MAJOR_VERSION=11
+--> Using cache 6d350ab0793e512faafad9bb998637a71d0ed4f3dfdd80ce3eace26dd972f4a8
+--> 6d350ab0793
+[1/3] STEP 4/30: ARG CUDA_MINOR_VERSION=7
+--> Using cache 54c9bb68010b64abdc5798bd0cef34e4a95055ef577e5208e888cde0323173c7
+--> 54c9bb68010
+[1/3] STEP 5/30: ARG SPDLOG_VERSION="1.11.0"
+--> Using cache 9089ed68441164207a689fb5008e6bb0e8bb53cfa47d56bf9fec460f7fe8ccd4
+--> 9089ed68441
+[1/3] STEP 6/30: ARG PIPER_PHONEMIZE_VERSION='1.0.0'
+--> Using cache 82b0153207ab15ccb655edeb2d61258544e37e8c06112f10858e7a790ab9ac37
+--> 82b0153207a
+[1/3] STEP 7/30: ARG TARGETARCH
+--> Using cache 8499f7c07b0d44deec3542bd45ce6130bfd7b5d402535c2ff172087b8e425a6d
+--> 8499f7c07b0
+[1/3] STEP 8/30: ARG TARGETVARIANT
+--> Using cache fce059c8d00d143742d59897d2f7ef71f3ca08860c65c71eff13274011f0c012
+--> fce059c8d00
+[1/3] STEP 9/30: ENV BUILD_TYPE=${BUILD_TYPE}
+--> Using cache 4073966c75c783eebc5872f94e88370887004bc0c803a728a8b7f6b897877f64
+--> 4073966c75c
+[1/3] STEP 10/30: ENV EXTERNAL_GRPC_BACKENDS="huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py,autogptq:/build/extra/grpc/autogptq/autogptq.py,bark:/build/extra/grpc/bark/ttsbark.py,diffusers:/build/extra/grpc/diffusers/backend_diffusers.py,exllama:/build/extra/grpc/exllama/exllama.py,vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py,vllm:/build/extra/grpc/vllm/backend_vllm.py"
+--> Using cache e035c53e69408b3e91a5c67268af992bf05b8f137d343e11a9ba212083c0c7b5
+--> e035c53e694
+[1/3] STEP 11/30: ENV GALLERIES='[{"name":"model-gallery", "url":"github:go-skynet/model-gallery/index.yaml"}, {"url": "github:go-skynet/model-gallery/huggingface.yaml","name":"huggingface"}]'
+--> Using cache 96f4321c62926527fe3ab95fe635f1768be36169f26cbc944efaa87c2b0e2cd0
+--> 96f4321c629
+[1/3] STEP 12/30: ARG GO_TAGS="stablediffusion tts"
+--> Using cache f895291e3c9830493133dd3a16dc6a35ae25ee482ff340a18c85473f204e8b0e
+--> f895291e3c9
+[1/3] STEP 13/30: RUN apt-get update &&     apt-get install -y ca-certificates cmake curl patch pip
+--> Using cache 4a18712ce6e7aa39b064d7a0a3b7bb832b84d3b9d62e66dab37d1e8796802c24
+--> 4a18712ce6e
+[1/3] STEP 14/30: RUN echo "Target Architecture: $TARGETARCH"
+--> Using cache bc95f0c109b3d3707fbc68d6960a6e1d48ac1b56d08328b9483891cbd54bfcb9
+--> bc95f0c109b
+[1/3] STEP 15/30: RUN echo "Target Variant: $TARGETVARIANT"
+--> Using cache 73978d565ac72820c7e904348119dbcd639e59685c4c8f69c972be503982a0ca
+--> 73978d565ac
+[1/3] STEP 16/30: RUN if [ "${BUILD_TYPE}" = "cublas" ]; then     apt-get install -y software-properties-common &&     apt-add-repository contrib &&     curl -O https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.0-1_all.deb &&     dpkg -i cuda-keyring_1.0-1_all.deb &&     rm -f cuda-keyring_1.0-1_all.deb &&     apt-get update &&     apt-get install -y cuda-nvcc-${CUDA_MAJOR_VERSION}-${CUDA_MINOR_VERSION} libcublas-dev-${CUDA_MAJOR_VERSION}-${CUDA_MINOR_VERSION} libcusparse-dev-${CUDA_MAJOR_VERSION}-${CUDA_MINOR_VERSION} libcusolver-dev-${CUDA_MAJOR_VERSION}-${CUDA_MINOR_VERSION}     ; fi
+--> Using cache 71770f4d7dfa843a0376c37b6276d19753e31792663c3e7110a17b9e4308fe31
+--> 71770f4d7df
+[1/3] STEP 17/30: ENV PATH /usr/local/cuda/bin:${PATH}
+--> Using cache 1ea5863ab6614e30e9c526fe9ca9ff697108e0e1ff396f9131015a8e8964d04c
+--> 1ea5863ab66
+[1/3] STEP 18/30: COPY extra/requirements.txt /build/extra/requirements.txt
+--> Using cache 08e4bf7cd9f1184914ef0a80d4fe83b1945065f9e742609ee72a790f3c3d3120
+--> 08e4bf7cd9f
+[1/3] STEP 19/30: ENV PATH="/root/.cargo/bin:${PATH}"
+--> Using cache cf71c51fb8fce77a7c6d1a3b8c05d2236dc97f03b8495d35b263a1a91f091cca
+--> cf71c51fb8f
+[1/3] STEP 20/30: RUN pip install --upgrade pip
+--> Using cache e22d57b96befcad887dc9a09a0fee0963daf940a7f111675fc65f65c50345d86
+--> e22d57b96be
+[1/3] STEP 21/30: RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+--> Using cache 14eb781fdbccb84045a4b7503a0dafeeb3a040293c77ef7c15a7c7b9736744ee
+--> 14eb781fdbc
+[1/3] STEP 22/30: RUN if [ "${TARGETARCH}" = "amd64" ]; then         pip install git+https://github.com/suno-ai/bark.git diffusers invisible_watermark transformers accelerate safetensors;    fi
+--> Using cache feaef1e0f2d66d599cab3d21e93a5c2f649cdbe172c335e6029d671a96643b0a
+--> feaef1e0f2d
+[1/3] STEP 23/30: RUN if [ "${BUILD_TYPE}" = "cublas" ] && [ "${TARGETARCH}" = "amd64" ]; then         pip install torch vllm && pip install auto-gptq https://github.com/jllllll/exllama/releases/download/0.0.10/exllama-0.0.10+cu${CUDA_MAJOR_VERSION}${CUDA_MINOR_VERSION}-cp39-cp39-linux_x86_64.whl;    fi
+--> Using cache 2ca201050fab2f708467a2a8ed9860ad7d3d24d16323e6d2fb81c5720e462e93
+--> 2ca201050fa
+[1/3] STEP 24/30: RUN pip install -r /build/extra/requirements.txt && rm -rf /build/extra/requirements.txt
+--> Using cache d4709aaf5b58b59d5f361dd45ad0974f93f3dd78efcf278c96a87a78575c783f
+--> d4709aaf5b5
+[1/3] STEP 25/30: RUN git clone https://github.com/Plachtaa/VALL-E-X.git /usr/lib/vall-e-x && cd /usr/lib/vall-e-x && pip install -r requirements.txt
+--> Using cache 4be728de5757ed9d9d92a6c5a87c65f5da2e6aff280aa5768a9a241b70fb066d
+--> 4be728de575
+[1/3] STEP 26/30: WORKDIR /build
+--> Using cache cdd36f92bf822c3b053dddde2f82b2fbbebddcd1337039367faa5b3ce1d33971
+--> cdd36f92bf8
+[1/3] STEP 27/30: RUN apt-get install -y libopenblas-dev
+--> Using cache 1a318440b6e3a3549c64f3471e94f2383a733f484af6f89c476ba44d4c8694cd
+--> 1a318440b6e
+[1/3] STEP 28/30: RUN apt-get install -y libopencv-dev &&     ln -s /usr/include/opencv4/opencv2 /usr/include/opencv2
+--> Using cache 25f3ddd14fd277dda0e9832eaa7baa56e47be23120004ae123f69f390166f256
+--> 25f3ddd14fd
+[1/3] STEP 29/30: RUN test -n "$TARGETARCH"     || (echo 'warn: missing $TARGETARCH, either set this `ARG` manually, or run using `docker buildkit`')
+--> Using cache e7003bf321889c46390d43174c4e750e4d7888da4f921354dc2c705e429e84a0
+--> e7003bf3218
+[1/3] STEP 30/30: RUN curl -L "https://github.com/gabime/spdlog/archive/refs/tags/v${SPDLOG_VERSION}.tar.gz" |     tar -xzvf - &&     mkdir -p "spdlog-${SPDLOG_VERSION}/build" &&     cd "spdlog-${SPDLOG_VERSION}/build" &&     cmake ..  &&     make -j8 &&     cmake --install . --prefix /usr && mkdir -p "lib/Linux-$(uname -m)" &&     cd /build &&     mkdir -p "lib/Linux-$(uname -m)/piper_phonemize" &&     curl -L "https://github.com/rhasspy/piper-phonemize/releases/download/v${PIPER_PHONEMIZE_VERSION}/libpiper_phonemize-${TARGETARCH:-$(go env GOARCH)}${TARGETVARIANT}.tar.gz" |     tar -C "lib/Linux-$(uname -m)/piper_phonemize" -xzvf - && ls -liah /build/lib/Linux-$(uname -m)/piper_phonemize/ &&     cp -rfv /build/lib/Linux-$(uname -m)/piper_phonemize/lib/. /usr/lib/ &&     ln -s /usr/lib/libpiper_phonemize.so /usr/lib/libpiper_phonemize.so.1 &&     cp -rfv /build/lib/Linux-$(uname -m)/piper_phonemize/include/. /usr/include/
+--> Using cache 67e54096ac96b4158a8ffb42e2128efedbba08fc825426ce65e31cf50b42db96
+--> 67e54096ac9
+[2/3] STEP 1/14: FROM 67e54096ac96b4158a8ffb42e2128efedbba08fc825426ce65e31cf50b42db96 AS builder
+[2/3] STEP 2/14: ARG GO_TAGS="stablediffusion tts"
+--> Using cache 2e5cec5958572082aabeb4163af4abf012d09f2bfe4d07f60b992e0ae1c43660
+--> 2e5cec59585
+[2/3] STEP 3/14: ENV GO_TAGS=${GO_TAGS}
+--> Using cache 3e30cd436787e3117288fefecc661c12b84499a7610abf7595feea4a3cdf6d58
+--> 3e30cd43678
+[2/3] STEP 4/14: ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
+--> Using cache e4068340cd84648dca200452a80d89d3e77a749b3d38d28baa146c102db5736d
+--> e4068340cd8
+[2/3] STEP 5/14: ENV NVIDIA_REQUIRE_CUDA="cuda>=${CUDA_MAJOR_VERSION}.0"
+--> Using cache e61d85e9d6ac461178928578c04b03b83750a1e47d3adb57f9631011dde27014
+--> e61d85e9d6a
+[2/3] STEP 6/14: ENV NVIDIA_VISIBLE_DEVICES=all
+--> Using cache c0a301238ceff09c22b558175842e487a661f632427394611a94ffa674fbec32
+--> c0a301238ce
+[2/3] STEP 7/14: WORKDIR /build
+--> Using cache 0c261a5394710652d474b3bae4e3d4b2c3befab22af8b4433088592ccd34ac8d
+--> 0c261a53947
+[2/3] STEP 8/14: COPY Makefile .
+--> Using cache a8cf654a41a9c9855982a887e7905fbc0aba5fe43746fe28efb7e9f68c069a42
+--> a8cf654a41a
+[2/3] STEP 9/14: RUN make get-sources
+--> Using cache 2bd21110f4a0bb3d4954e3fd7c98d9de726b50239b60fd3c279c710cf3c90f52
+--> 2bd21110f4a
+[2/3] STEP 10/14: COPY go.mod .
+--> Using cache 1ff7f13f8fea688d71aa11753a8325af16ba3ba1537a8bf014cc8186b86d90eb
+--> 1ff7f13f8fe
+[2/3] STEP 11/14: RUN make prepare
+--> Using cache e42a3f7f519c0d010228229d3c8e31fe9dfac8597c3872d9f16be4743c96cd7c
+--> e42a3f7f519
+[2/3] STEP 12/14: COPY . .
+--> 0f3695fb901
+[2/3] STEP 13/14: COPY .git .
+--> 3ee26adc245
+[2/3] STEP 14/14: RUN ESPEAK_DATA=/build/lib/Linux-$(uname -m)/piper_phonemize/lib/espeak-ng-data make build
+go mod edit -replace github.com/nomic-ai/gpt4all/gpt4all-bindings/golang=/build/gpt4all/gpt4all-bindings/golang
+go mod edit -replace github.com/go-skynet/go-ggml-transformers.cpp=/build/go-ggml-transformers
+go mod edit -replace github.com/donomii/go-rwkv.cpp=/build/go-rwkv
+go mod edit -replace github.com/ggerganov/whisper.cpp=/build/whisper.cpp
+go mod edit -replace github.com/go-skynet/go-bert.cpp=/build/go-bert
+go mod edit -replace github.com/go-skynet/bloomz.cpp=/build/bloomz
+go mod edit -replace github.com/mudler/go-stable-diffusion=/build/go-stable-diffusion
+go mod edit -replace github.com/mudler/go-piper=/build/go-piper
+go mod edit -replace github.com/mudler/go-ggllm.cpp=/build/go-ggllm
+go mod download
+touch prepare
+CGO_LDFLAGS="" C_INCLUDE_PATH=/build/go-ggml-transformers LIBRARY_PATH=/build/go-ggml-transformers \
+go build -ldflags "-X "github.com/go-skynet/LocalAI/internal.Version=v1.25.0-66-g2e5ef0d" -X "github.com/go-skynet/LocalAI/internal.Commit=2e5ef0de6e8f354c40e0a5669876b51e5dc409f4"" -tags "stablediffusion tts" -o backend-assets/grpc/falcon-ggml ./cmd/grpc/falcon-ggml/
+# github.com/go-skynet/LocalAI/cmd/grpc/falcon-ggml
+/usr/local/go/pkg/tool/linux_amd64/link: running g++ failed: exit status 1
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::operator=(std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > const&) [clone .isra.0]':
+common.cpp:(.text+0x20fe): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, false>::_M_handle_match(std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, false>::_Match_mode, long) [clone .isra.0]':
+common.cpp:(.text+0x13672): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, false>::_M_main_dispatch(std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, false>::_Match_mode, std::integral_constant<bool, false>) [clone .constprop.0]':
+common.cpp:(.text+0x14154): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `trim(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+common.cpp:(.text+0x14e04): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `gpt_split_words(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&)':
+common.cpp:(.text+0x15061): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: common.cpp:(.text+0x15122): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: common.cpp:(.text+0x154f5): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `gpt_tokenize(gpt_vocab const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+common.cpp:(.text+0x1589b): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o):common.cpp:(.text+0x1595d): more undefined references to `__libc_single_threaded' follow
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `void std::vector<std::pair<long, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > >, std::allocator<std::pair<long, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > > > >::_M_realloc_insert<long&, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > const&>(__gnu_cxx::__normal_iterator<std::pair<long, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > >*, std::vector<std::pair<long, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > >, std::allocator<std::pair<long, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > > > > >, long&, std::vector<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > const&)':
+common.cpp:(.text._ZNSt6vectorISt4pairIlS_INSt7__cxx119sub_matchIN9__gnu_cxx17__normal_iteratorIPKcNS1_12basic_stringIcSt11char_traitsIcESaIcEEEEEEESaISD_EEESaISG_EE17_M_realloc_insertIJRlRKSF_EEEvNS4_IPSG_SI_EEDpOT_[_ZNSt6vectorISt4pairIlS_INSt7__cxx119sub_matchIN9__gnu_cxx17__normal_iteratorIPKcNS1_12basic_stringIcSt11char_traitsIcESaIcEEEEEEESaISD_EEESaISG_EE17_M_realloc_insertIJRlRKSF_EEEvNS4_IPSG_SI_EEDpOT_]+0x281): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `void std::deque<long, std::allocator<long> >::_M_push_back_aux<long const&>(long const&)':
+common.cpp:(.text._ZNSt5dequeIlSaIlEE16_M_push_back_auxIJRKlEEEvDpOT_[_ZNSt5dequeIlSaIlEE16_M_push_back_auxIJRKlEEEvDpOT_]+0x217): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_reallocate_map(unsigned long, bool)':
+common.cpp:(.text._ZNSt5dequeINSt8__detail9_StateSeqINSt7__cxx1112regex_traitsIcEEEESaIS5_EE17_M_reallocate_mapEmb[_ZNSt5dequeINSt8__detail9_StateSeqINSt7__cxx1112regex_traitsIcEEEESaIS5_EE17_M_reallocate_mapEmb]+0x197): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, false>::_M_lookahead(long)':
+common.cpp:(.text._ZNSt8__detail9_ExecutorIN9__gnu_cxx17__normal_iteratorIPKcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEESaINS5_9sub_matchISB_EEENS5_12regex_traitsIcEELb0EE12_M_lookaheadEl[_ZNSt8__detail9_ExecutorIN9__gnu_cxx17__normal_iteratorIPKcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEESaINS5_9sub_matchISB_EEENS5_12regex_traitsIcEELb0EE12_M_lookaheadEl]+0x406): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::__detail::_Executor<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::sub_match<__gnu_cxx::__normal_iterator<char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >, std::__cxx11::regex_traits<char>, true>::_M_lookahead(long)':
+common.cpp:(.text._ZNSt8__detail9_ExecutorIN9__gnu_cxx17__normal_iteratorIPKcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEESaINS5_9sub_matchISB_EEENS5_12regex_traitsIcEELb1EE12_M_lookaheadEl[_ZNSt8__detail9_ExecutorIN9__gnu_cxx17__normal_iteratorIPKcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEESaINS5_9sub_matchISB_EEENS5_12regex_traitsIcEELb1EE12_M_lookaheadEl]+0x326): undefined reference to `std::__throw_bad_array_new_length()'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o):common.cpp:(.text._ZNSt17_Function_handlerIFbcENSt8__detail15_BracketMatcherINSt7__cxx1112regex_traitsIcEELb0ELb0EEEE10_M_managerERSt9_Any_dataRKS8_St18_Manager_operation[_ZNSt17_Function_handlerIFbcENSt8__detail15_BracketMatcherINSt7__cxx1112regex_traitsIcEELb0ELb0EEEE10_M_managerERSt9_Any_dataRKS8_St18_Manager_operation]+0x2bb): more undefined references to `std::__throw_bad_array_new_length()' follow
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(common.o): in function `std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::_M_compile(char const*, char const*, std::regex_constants::syntax_option_type)':
+common.cpp:(.text._ZNSt7__cxx1111basic_regexIcNS_12regex_traitsIcEEE10_M_compileEPKcS5_NSt15regex_constants18syntax_option_typeE[_ZNSt7__cxx1111basic_regexIcNS_12regex_traitsIcEEE10_M_compileEPKcS5_NSt15regex_constants18syntax_option_typeE]+0x6a): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: common.cpp:(.text._ZNSt7__cxx1111basic_regexIcNS_12regex_traitsIcEEE10_M_compileEPKcS5_NSt15regex_constants18syntax_option_typeE[_ZNSt7__cxx1111basic_regexIcNS_12regex_traitsIcEEE10_M_compileEPKcS5_NSt15regex_constants18syntax_option_typeE]+0x129): undefined reference to `__libc_single_threaded'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `convert_fp16_to_fp32_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x9c): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x12e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x165): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q6_K_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x202): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x27d): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2b0): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q5_K_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x342): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3bd): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3f0): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q4_K_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x482): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4fd): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x530): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q3_K_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5c2): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x63d): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x670): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q2_K_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x702): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x77d): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7b0): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q8_0_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x84c): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8de): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x915): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q5_1_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x9bc): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xa4e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xa85): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q5_0_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xb2c): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xbbe): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xbf5): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q4_1_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xc9c): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xd2e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xd65): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_row_q4_0_cuda(void const*, float*, int, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xe0c): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xe9e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xed5): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `mul_f32(float const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xfa6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0xfd9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_pool_malloc(unsigned long, unsigned long*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1041): undefined reference to `cudaGetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x10df): undefined reference to `cudaMalloc'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x10f6): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1135): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_cpy_tensor_2d(void*, ggml_tensor const*, long, long, long, long, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x12a5): undefined reference to `cudaMemcpy2DAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x12f3): undefined reference to `cudaGetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x135f): undefined reference to `cudaMemcpy2DAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x13e2): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_pool_free(void*, unsigned long)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1461): undefined reference to `cudaGetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1506): undefined reference to `cudaFree'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x151d): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x155c): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_cpy(ggml_tensor const*, ggml_tensor const*, ggml_tensor*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x182b): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x18ec): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1a60): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1ac8): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1b3b): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1c90): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1cf8): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1d6a): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_cpy_tensor_2d(void*, ggml_tensor const*, long, long, long, long, CUstream_st*) [clone .constprop.0]':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1f34): undefined reference to `cudaMemcpy2DAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1f82): undefined reference to `cudaGetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1fee): undefined reference to `cudaMemcpy2DAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2073): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, void (*)(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&), bool, bool) [clone .constprop.0]':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x278b): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x279b): undefined reference to `cudaDeviceSynchronize'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x290f): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2d36): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2ddf): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2f3e): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2f97): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3045): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x311c): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3137): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x330f): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x335d): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x336a): undefined reference to `cudaDeviceSynchronize'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3410): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3435): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3457): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x34a2): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x34b8): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o):tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x353f): more undefined references to `cudaGetErrorString' follow
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void cpy_f32_f16<&(cpy_1_f32_f32(char const*, char*))>(char const*, char*, int, int, int, int, int, int, int, int, int, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x37ea): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3820): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void cpy_f32_f16<&(cpy_1_f32_f16(char const*, char*))>(char const*, char*, int, int, int, int, int, int, int, int, int, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x39da): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3a10): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `mul_mat_vec_nc_f16_f32(void const*, float const*, float*, int, int, int, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3b47): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3b7a): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `mul_mat_p021_f16_f32(void const*, float const*, float*, int, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3c6e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3ca1): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_mul_mat_vec_q6_k(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3d86): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3db9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `rope_f32(float const*, float*, int, float, float)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3e98): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3ecb): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<32, 2, &(dequantize_q4_0(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3fb6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x3fe9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<32, 2, &(dequantize_q4_1(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x40c6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x40f9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<32, 2, &(dequantize_q5_0(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x41d6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4209): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<32, 2, &(dequantize_q5_1(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x42e6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4319): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_mul_mat_vec_q2_k(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x43f6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4429): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_mul_mat_vec_q3_k(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4506): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4539): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_mul_mat_vec_q4_k(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4616): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4649): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `diag_mask_inf_f32(float const*, float*, int, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4725): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4758): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<32, 1, &(dequantize_q8_0(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4836): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4869): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_mul_mat_vec<1, 1, &(convert_f16(void const*, int, int, float2&))>(void const*, float const*, float*, int, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4946): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4979): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `add_f32(float const*, float const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4a44): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4a77): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_mul_mat_vec_q5_k(void const*, float const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4b44): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4b77): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `scale_f32(float const*, float*, float, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4c3c): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4c6c): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<32, 2, &(dequantize_q4_0(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4d26): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4d56): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `soft_max_f32(float const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4e06): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4e36): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<1, 1, &(convert_f16(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4ee6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4f16): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<32, 2, &(dequantize_q4_1(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4fc6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x4ff6): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<32, 2, &(dequantize_q5_0(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x50a6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x50d6): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<32, 2, &(dequantize_q5_1(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5186): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x51b6): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `void dequantize_block<32, 1, &(dequantize_q8_0(void const*, int, int, float2&))>(void const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5266): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5296): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `silu_f32(float const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5346): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5376): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `rms_norm_f32(float const*, float*, int)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5426): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5456): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_block_q2_K(void const*, float*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x54f8): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5528): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_block_q3_K(void const*, float*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x55c8): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x55f8): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_block_q4_K(void const*, float*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5698): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x56c8): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_block_q5_K(void const*, float*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5768): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5798): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `dequantize_block_q6_K(void const*, float*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5838): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5868): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, void (*)(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&), bool, bool) [clone .constprop.1]':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5d79): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5d86): undefined reference to `cudaDeviceSynchronize'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x5f0f): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6221): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x63b8): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x63c5): undefined reference to `cudaDeviceSynchronize'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6412): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6425): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x655e): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x65ee): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x668d): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x670e): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x674e): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x676d): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6815): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x682d): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o):tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6844): more undefined references to `cudaGetErrorString' follow
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_init_cublas':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6b58): undefined reference to `cudaGetDeviceCount'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6bc6): undefined reference to `cudaGetDeviceProperties_v2'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6cfb): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6d14): undefined reference to `cudaStreamCreateWithFlags'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6d27): undefined reference to `cublasCreate_v2'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6d40): undefined reference to `cublasSetMathMode'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6d71): undefined reference to `cublasGetStatusString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6db1): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6dd6): undefined reference to `cublasGetStatusString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6dfb): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6e1d): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x6e41): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_host_malloc':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7165): undefined reference to `cudaMallocHost'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7191): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7198): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_host_free':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7207): undefined reference to `cudaFreeHost'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7218): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_mul_mat_vec_p021(ggml_tensor const*, ggml_tensor const*, ggml_tensor*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x73ed): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x745e): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x751f): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7562): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x75c4): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_mul_mat_vec_nc(ggml_tensor const*, ggml_tensor const*, ggml_tensor*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7755): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x77c5): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x78bb): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7904): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7957): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_transform_tensor':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7bba): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7be6): undefined reference to `cudaMalloc'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7c09): undefined reference to `cudaMemcpy'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7c3a): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7cd6): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_free_data':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7d8b): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7d9c): undefined reference to `cudaFree'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7dd6): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7e16): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_assign_buffers_impl(ggml_tensor*, bool)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x7f2d): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8022): undefined reference to `cudaSetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x80af): undefined reference to `cudaMalloc'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x80c8): undefined reference to `cudaMemset'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x80f4): undefined reference to `cudaMalloc'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8177): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x81b4): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x81cf): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x81f2): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_set_main_device':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8287): undefined reference to `cudaGetDeviceProperties_v2'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8308): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_free_scratch':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8373): undefined reference to `cudaFree'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x8394): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_cpy_tensor_2d(void*, ggml_tensor const*, long, long, long, long, CUstream_st*)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x13a3): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `__cudaUnregisterBinaryUtil()':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x1e0c): undefined reference to `__cudaUnregisterFatBinary'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_cpy_tensor_2d(void*, ggml_tensor const*, long, long, long, long, CUstream_st*) [clone .constprop.0]':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text+0x2034): undefined reference to `cudaMemcpyAsync'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_mul_mat_cublas(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x9f): undefined reference to `cudaGetDevice'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xdb): undefined reference to `cublasSetStream_v2'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x125): undefined reference to `cublasSgemm_v2'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x17c): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x210): undefined reference to `cublasGetStatusString'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z27ggml_cuda_op_mul_mat_cublasPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x238): undefined reference to `cublasGetStatusString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_add(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xee): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xf7): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x194): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1d1): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_addPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1df): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_silu(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xbd): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xc6): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x15e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x195): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_siluPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1a3): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_rms_norm(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xb3): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xbc): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x14f): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x186): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_rms_normPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x194): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_dequantize_mul_mat_vec(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x3b5): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x3c9): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x470): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x521): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x589): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x608): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x6b9): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x721): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x7a0): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x851): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x8b9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x938): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x9e9): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xa51): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xace): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xb7b): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xbe3): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xc6a): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xd17): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xd7f): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xdf9): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xea6): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xf0e): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xf84): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1032): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x109a): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1112): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x11a8): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1210): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1288): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1335): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x139d): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1482): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x14ea): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z35ggml_cuda_op_dequantize_mul_mat_vecPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x14fd): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_scale(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xf5): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xfe): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x19c): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1d9): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z18ggml_cuda_op_scalePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1e7): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_diag_mask_inf(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xe4): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xed): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1aa): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1ed): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z26ggml_cuda_op_diag_mask_infPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x1fb): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_soft_max(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xa3): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0xac): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x13f): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x176): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z21ggml_cuda_op_soft_maxPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x184): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_rope(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x123): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x12c): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x209): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x24c): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z17ggml_cuda_op_ropePK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x25a): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `ggml_cuda_op_mul(ggml_tensor const*, ggml_tensor const*, ggml_tensor*, char*, float*, float*, float*, long, long, long, int, CUstream_st*&)':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x129): undefined reference to `cudaGetLastError'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x182): undefined reference to `__cudaPushCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x23e): undefined reference to `__cudaPopCallConfiguration'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x287): undefined reference to `cudaLaunchKernel'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text._Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st[_Z16ggml_cuda_op_mulPK11ggml_tensorS1_PS_PcPfS4_S4_llliRP11CUstream_st]+0x2c8): undefined reference to `cudaGetErrorString'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `__sti____cudaRegisterAll()':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0xd): undefined reference to `__cudaRegisterFatBinary'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0x41): undefined reference to `__cudaRegisterFunction'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0x6f): undefined reference to `__cudaRegisterFunction'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0x9d): undefined reference to `__cudaRegisterFunction'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0xcb): undefined reference to `__cudaRegisterFunction'
+/usr/bin/ld: tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0xf9): undefined reference to `__cudaRegisterFunction'
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o):tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0x127): more undefined references to `__cudaRegisterFunction' follow
+/usr/bin/ld: /build/go-ggml-transformers/libtransformers.a(ggml-cuda.o): in function `__sti____cudaRegisterAll()':
+tmpxft_001b5f8f_00000000-6_ggml-cuda.cudafe1.cpp:(.text.startup+0x63f): undefined reference to `__cudaRegisterFatBinaryEnd'
+collect2: error: ld returned 1 exit status
+
+make: *** [Makefile:419: backend-assets/grpc/falcon-ggml] Error 1
+[3/3] STEP 1/17: FROM 67e54096ac96b4158a8ffb42e2128efedbba08fc825426ce65e31cf50b42db96
+[3/3] STEP 2/17: ARG FFMPEG
+Error: error building at STEP "RUN ESPEAK_DATA=/build/lib/Linux-$(uname -m)/piper_phonemize/lib/espeak-ng-data make build": error while running runtime: exit status 2
