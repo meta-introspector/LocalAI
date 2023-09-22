@@ -1,0 +1,730 @@
+  C-c C-c^Cmdupont@mdupont-G470:~/2023/09/LocalAI$ bash ./run.sh 
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: no container with name or ID "localai" found: no such container
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: no container with name or ID "localai" found: no such container
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+@@@@@
+Skipping rebuild
+@@@@@
+If you are experiencing issues with the pre-compiled builds, try setting REBUILD=true
+If you are still experiencing issues with the build, try setting CMAKE_ARGS and disable the instructions set as needed:
+CMAKE_ARGS="-DLLAMA_F16C=OFF -DLLAMA_AVX512=OFF -DLLAMA_AVX2=OFF -DLLAMA_FMA=OFF"
+see the documentation at: https://localai.io/basics/build/index.html
+Note: See also https://github.com/go-skynet/LocalAI/issues/288
+@@@@@
+CPU info:
+model name	: 12th Gen Intel(R) Core(TM) i9-12900KF
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l2 cdp_l2 ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdt_a rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities
+CPU:    AVX    found OK
+CPU:    AVX2   found OK
+CPU: no AVX512 found
+@@@@@
+11:48AM INF Starting LocalAI using 4 threads, with models path: /models
+11:48AM INF LocalAI version: 7bdf707 (7bdf707dd3d4eaeb09eea31484ab2f51fba1ba32)
+11:48AM DBG Model: codellama-7b-instruct (config: {PredictionOptions:{Model:codellama-7b-instruct.Q4_K_M.gguf Language: N:0 TopP:0.7 TopK:80 Temperature:0.2 Maxtokens:0 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name:codellama-7b-instruct F16:false Threads:0 Debug:false Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage:llama2-chat-message Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:4096 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}})
+11:48AM DBG Model: wizardcode-15b (config: {PredictionOptions:{Model: Language: N:0 TopP:0 TopK:0 Temperature:0 Maxtokens:0 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name:wizardcode-15b F16:false Threads:0 Debug:false Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:0 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}})
+11:48AM DBG Model: gpt-3.5-turbo (config: {PredictionOptions:{Model:wizardlm Language: N:0 TopP:0.7 TopK:80 Temperature:0.2 Maxtokens:0 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name:gpt-3.5-turbo F16:false Threads:0 Debug:false Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat:wizardlm-chat ChatMessage: Completion:wizardlm-completion Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:1024 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}})
+11:48AM DBG Model: text-embedding-ada-002 (config: {PredictionOptions:{Model:bert-MiniLM-L6-v2q4_0.bin Language: N:0 TopP:0 TopK:0 Temperature:0 Maxtokens:0 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name:text-embedding-ada-002 F16:false Threads:0 Debug:false Roles:map[] Embeddings:true Backend:bert-embeddings TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:0 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}})
+11:48AM DBG Extracting backend assets files to /tmp/localai/backend_data
+11:48AM DBG Checking "codellama-7b-instruct.Q4_K_M.gguf" exists and matches SHA
+11:48AM DBG File "codellama-7b-instruct.Q4_K_M.gguf" already exists and matches the SHA. Skipping download
+11:48AM DBG Prompt template "llama2-chat-message" written
+11:48AM DBG Written config file /models/codellama-7b-instruct.yaml
+11:48AM DBG Checking "bert-MiniLM-L6-v2q4_0.bin" exists and matches SHA
+11:48AM DBG File "bert-MiniLM-L6-v2q4_0.bin" already exists and matches the SHA. Skipping download
+11:48AM DBG Written config file /models/text-embedding-ada-002.yaml
+
+ ┌───────────────────────────────────────────────────┐ 
+ │                   Fiber v2.49.2                   │ 
+ │               http://127.0.0.1:8080               │ 
+ │       (bound on host 0.0.0.0 and port 8080)       │ 
+ │                                                   │ 
+ │ Handlers ............ 71  Processes ........... 1 │ 
+ │ Prefork ....... Disabled  PID ................. 9 │ 
+ └───────────────────────────────────────────────────┘ 
+
+11:56AM DBG Request received: 
+11:56AM DBG Configuration read: &{PredictionOptions:{Model:openllama_7b Language: N:0 TopP:1 TopK:80 Temperature:0.1 Maxtokens:512 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name: F16:false Threads:4 Debug:true Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:700 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}}
+11:56AM DBG Parameters: &{PredictionOptions:{Model:openllama_7b Language: N:0 TopP:1 TopK:80 Temperature:0.1 Maxtokens:512 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name: F16:false Threads:4 Debug:true Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:700 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}}
+11:56AM DBG Prompt (before templating): ###
+Role name: default
+You are Command Line App ShellGPT, a programming and system administration assistant.
+You are managing Linux/Ubuntu 22.04.1 LTS operating system with bash shell.
+Provide only plain text without Markdown formatting.
+Do not show any warnings or information regarding your capabilities.
+If you need to store any data, assume it will be stored in the chat.
+
+Request: hello world 123
+###
+Answer:
+11:56AM DBG Stream request received
+11:56AM DBG Template failed loading: failed loading a template for openllama_7b
+11:56AM DBG Prompt (after templating): ###
+Role name: default
+You are Command Line App ShellGPT, a programming and system administration assistant.
+You are managing Linux/Ubuntu 22.04.1 LTS operating system with bash shell.
+Provide only plain text without Markdown formatting.
+Do not show any warnings or information regarding your capabilities.
+If you need to store any data, assume it will be stored in the chat.
+
+Request: hello world 123
+###
+Answer:
+[10.0.2.100]:49874 200 - POST /v1/chat/completions
+11:56AM DBG Sending chunk: {"object":"chat.completion.chunk","model":"openllama_7b","choices":[{"index":0,"delta":{"role":"assistant","content":""}}],"usage":{"prompt_tokens":0,"completion_tokens":0,"total_tokens":0}}
+
+11:56AM DBG Loading model 'openllama_7b' greedly from all the available backends: llama, llama-stable, gpt4all, falcon, gptneox, bert-embeddings, falcon-ggml, gptj, gpt2, dolly, mpt, replit, starcoder, bloomz, rwkv, whisper, stablediffusion, piper, /build/extra/grpc/huggingface/huggingface.py, /build/extra/grpc/autogptq/autogptq.py, /build/extra/grpc/bark/ttsbark.py, /build/extra/grpc/diffusers/backend_diffusers.py, /build/extra/grpc/exllama/exllama.py, /build/extra/grpc/vall-e-x/ttsvalle.py, /build/extra/grpc/vllm/backend_vllm.py
+11:56AM DBG [llama] Attempting to load
+11:56AM DBG Loading model llama from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model llama: {backendString:llama model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/llama
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:46821'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager2751900427
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:46821: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:46821): stderr 2023/09/22 11:56:45 gRPC Server listening at 127.0.0.1:46821
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath: RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:46821): stderr create_gpt_params_cuda: loading model /models/openllama_7b
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:46821): stderr 
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:46821): stderr CUDA error 35 at /build/go-llama/llama.cpp/ggml-cuda.cu:5509: CUDA driver version is insufficient for CUDA runtime version
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:46821): stderr current device: 1606823720
+11:56AM DBG [llama] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:56AM DBG [llama-stable] Attempting to load
+11:56AM DBG Loading model llama-stable from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model llama-stable: {backendString:llama-stable model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/llama-stable
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:39925'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager2852207172
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:39925: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39925): stderr 2023/09/22 11:56:47 gRPC Server listening at 127.0.0.1:39925
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath: RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39925): stderr create_gpt_params: loading model /models/openllama_7b
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39925): stderr CUDA error 35 at /build/go-llama-stable/llama.cpp/ggml-cuda.cu:4235: CUDA driver version is insufficient for CUDA runtime version
+11:56AM DBG [llama-stable] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:56AM DBG [gpt4all] Attempting to load
+11:56AM DBG Loading model gpt4all from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model gpt4all: {backendString:gpt4all model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gpt4all
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:42745'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager2416924867
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:42745: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:42745): stderr 2023/09/22 11:56:49 gRPC Server listening at 127.0.0.1:42745
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:42745): stderr load_model: error 'No such file or directory'
+11:56AM DBG [gpt4all] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:56AM DBG [falcon] Attempting to load
+11:56AM DBG Loading model falcon from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model falcon: {backendString:falcon model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/falcon
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:40473'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager1967173943
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:40473: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:40473): stderr 2023/09/22 11:56:51 gRPC Server listening at 127.0.0.1:40473
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:40473): stderr CUDA error 35 at /build/go-ggllm/ggllm.cpp/ggml-cuda.cu:1878: CUDA driver version is insufficient for CUDA runtime version
+11:56AM DBG [falcon] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:56AM DBG [gptneox] Attempting to load
+11:56AM DBG Loading model gptneox from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model gptneox: {backendString:gptneox model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gptneox
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:37655'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager4117322703
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:37655: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:37655): stderr 2023/09/22 11:56:53 gRPC Server listening at 127.0.0.1:37655
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:37655): stderr gpt_neox_model_load: failed to open '/models/openllama_7b'
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:37655): stderr gpt_neox_bootstrap: failed to load model from '/models/openllama_7b'
+11:56AM DBG [gptneox] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:56AM DBG [bert-embeddings] Attempting to load
+11:56AM DBG Loading model bert-embeddings from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model bert-embeddings: {backendString:bert-embeddings model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/bert-embeddings
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:39795'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager630929673
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:39795: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39795): stderr 2023/09/22 11:56:55 gRPC Server listening at 127.0.0.1:39795
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39795): stderr bert_load_from_file: failed to open '/models/openllama_7b'
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:39795): stderr bert_bootstrap: failed to load model from '/models/openllama_7b'
+11:56AM DBG [bert-embeddings] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:56AM DBG [falcon-ggml] Attempting to load
+11:56AM DBG Loading model falcon-ggml from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model falcon-ggml: {backendString:falcon-ggml model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/falcon-ggml
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:33855'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager3137176713
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:33855: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:33855): stderr 2023/09/22 11:56:57 gRPC Server listening at 127.0.0.1:33855
+11:56AM DBG GRPC Service Ready
+11:56AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:33855): stderr falcon_model_load: failed to open '/models/openllama_7b'
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:33855): stderr falcon_bootstrap: failed to load model from '/models/openllama_7b'
+11:56AM DBG [falcon-ggml] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:56AM DBG [gptj] Attempting to load
+11:56AM DBG Loading model gptj from openllama_7b
+11:56AM DBG Loading model in memory from file: /models/openllama_7b
+11:56AM DBG Loading GRPC Model gptj: {backendString:gptj model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:56AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gptj
+11:56AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:35621'
+11:56AM DBG GRPC Service state dir: /tmp/go-processmanager668742951
+11:56AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:35621: connect: connection refused"
+11:56AM DBG GRPC(openllama_7b-127.0.0.1:35621): stderr 2023/09/22 11:56:59 gRPC Server listening at 127.0.0.1:35621
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:35621): stderr gptj_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:35621): stderr gptj_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [gptj] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [gpt2] Attempting to load
+11:57AM DBG Loading model gpt2 from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model gpt2: {backendString:gpt2 model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gpt2
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:44339'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager372208791
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:44339: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44339): stderr 2023/09/22 11:57:01 gRPC Server listening at 127.0.0.1:44339
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44339): stderr gpt2_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44339): stderr gpt2_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [gpt2] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [dolly] Attempting to load
+11:57AM DBG Loading model dolly from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model dolly: {backendString:dolly model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/dolly
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:42889'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager521367119
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:42889: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:42889): stderr 2023/09/22 11:57:03 gRPC Server listening at 127.0.0.1:42889
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:42889): stderr dollyv2_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:42889): stderr dolly_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [dolly] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [mpt] Attempting to load
+11:57AM DBG Loading model mpt from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model mpt: {backendString:mpt model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/mpt
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:44681'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager70785528
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:44681: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44681): stderr 2023/09/22 11:57:05 gRPC Server listening at 127.0.0.1:44681
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44681): stderr mpt_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:44681): stderr mpt_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [mpt] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [replit] Attempting to load
+11:57AM DBG Loading model replit from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model replit: {backendString:replit model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/replit
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:33217'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager2477925217
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:33217: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:33217): stderr 2023/09/22 11:57:07 gRPC Server listening at 127.0.0.1:33217
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:33217): stderr replit_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:33217): stderr replit_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [replit] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [starcoder] Attempting to load
+11:57AM DBG Loading model starcoder from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model starcoder: {backendString:starcoder model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/starcoder
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:34871'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager750577998
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:34871: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:34871): stderr 2023/09/22 11:57:09 gRPC Server listening at 127.0.0.1:34871
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG [starcoder] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [bloomz] Attempting to load
+11:57AM DBG Loading model bloomz from openllama_7b
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:34871): stderr starcoder_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:34871): stderr starcoder_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG Loading GRPC Model bloomz: {backendString:bloomz model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/bloomz
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:46379'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager940016787
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:46379: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:46379): stderr 2023/09/22 11:57:11 gRPC Server listening at 127.0.0.1:46379
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:46379): stderr bloom_model_load: failed to open '/models/openllama_7b'
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:46379): stderr bloomz_bootstrap: failed to load model from '/models/openllama_7b'
+11:57AM DBG [bloomz] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:57AM DBG [rwkv] Attempting to load
+11:57AM DBG Loading model rwkv from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model rwkv: {backendString:rwkv model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/rwkv
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:36363'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager2048083842
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:36363: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 2023/09/22 11:57:13 gRPC Server listening at 127.0.0.1:36363
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr Failed to open file /models/openllama_7b
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr /build/go-rwkv/rwkv.cpp/rwkv.cpp:1129: file.file
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr /build/go-rwkv/rwkv.cpp/rwkv.cpp:1266: rwkv_instance_from_file(file_path, *instance.get())
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr panic: runtime error: invalid memory address or nil pointer dereference
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x52376e]
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr goroutine 10 [running]:
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/donomii/go-rwkv%2ecpp.LoadFiles.(*Context).GetStateBufferElementCount.func1(0xc000028618?)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/go-rwkv/wrapper.go:63 +0xe
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/donomii/go-rwkv%2ecpp.(*Context).GetStateBufferElementCount(...)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/go-rwkv/wrapper.go:63
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/donomii/go-rwkv%2ecpp.LoadFiles({0xc000028618?, 0xc000028620?}, {0xc0000c82a0, 0x23}, 0xae600?)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/go-rwkv/wrapper.go:131 +0x52
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/go-skynet/LocalAI/pkg/backend/llm/rwkv.(*LLM).Load(0xc000034cd0, 0xc0001b5520)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/pkg/backend/llm/rwkv/rwkv.go:31 +0xee
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/go-skynet/LocalAI/pkg/grpc.(*server).LoadModel(0xc000034d90, {0xc0001b5520?, 0x5261a6?}, 0x0?)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/pkg/grpc/server.go:50 +0xe6
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr github.com/go-skynet/LocalAI/pkg/grpc/proto._Backend_LoadModel_Handler({0x917440?, 0xc000034d90}, {0x9fd870, 0xc0001ef320}, 0xc0001e39d0, 0x0)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/build/pkg/grpc/proto/backend_grpc.pb.go:264 +0x169
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr google.golang.org/grpc.(*Server).processUnaryRPC(0xc0001e61e0, {0xa009f8, 0xc0002b4340}, 0xc0000279e0, 0xc0001eec90, 0xcf2070, 0x0)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:1376 +0xde7
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr google.golang.org/grpc.(*Server).handleStream(0xc0001e61e0, {0xa009f8, 0xc0002b4340}, 0xc0000279e0, 0x0)
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:1753 +0x9e7
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr google.golang.org/grpc.(*Server).serveStreams.func1.1()
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:998 +0x8d
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr created by google.golang.org/grpc.(*Server).serveStreams.func1 in goroutine 22
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:36363): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:996 +0x165
+11:57AM DBG [rwkv] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:57AM DBG [whisper] Attempting to load
+11:57AM DBG Loading model whisper from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model whisper: {backendString:whisper model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/whisper
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:43017'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager2735135993
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:43017: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:43017): stderr 2023/09/22 11:57:15 gRPC Server listening at 127.0.0.1:43017
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG [whisper] Fails: could not load model: rpc error: code = Unknown desc = stat /models/openllama_7b: no such file or directory
+11:57AM DBG [stablediffusion] Attempting to load
+11:57AM DBG Loading model stablediffusion from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model stablediffusion: {backendString:stablediffusion model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/stablediffusion
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:35869'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager3388654737
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:35869: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:35869): stderr 2023/09/22 11:57:17 gRPC Server listening at 127.0.0.1:35869
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG [stablediffusion] Fails: could not load model: rpc error: code = Unknown desc = stat /models/openllama_7b: no such file or directory
+11:57AM DBG [piper] Attempting to load
+11:57AM DBG Loading model piper from openllama_7b
+11:57AM DBG Loading model in memory from file: /models/openllama_7b
+11:57AM DBG Loading GRPC Model piper: {backendString:piper model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000403380 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:57AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/piper
+11:57AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:40215'
+11:57AM DBG GRPC Service state dir: /tmp/go-processmanager941957094
+11:57AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:40215: connect: connection refused"
+11:57AM DBG GRPC(openllama_7b-127.0.0.1:40215): stderr 2023/09/22 11:57:19 gRPC Server listening at 127.0.0.1:40215
+11:57AM DBG GRPC Service Ready
+11:57AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/espeak-ng-data RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:57AM DBG [piper] Fails: could not load model: rpc error: code = Unknown desc = unsupported model type /models/openllama_7b (should end with .onnx)
+11:57AM DBG [/build/extra/grpc/huggingface/huggingface.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/huggingface/huggingface.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/huggingface/huggingface.py] Fails: backend unsupported: /build/extra/grpc/huggingface/huggingface.py
+11:57AM DBG [/build/extra/grpc/autogptq/autogptq.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/autogptq/autogptq.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/autogptq/autogptq.py] Fails: backend unsupported: /build/extra/grpc/autogptq/autogptq.py
+11:57AM DBG [/build/extra/grpc/bark/ttsbark.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/bark/ttsbark.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/bark/ttsbark.py] Fails: backend unsupported: /build/extra/grpc/bark/ttsbark.py
+11:57AM DBG [/build/extra/grpc/diffusers/backend_diffusers.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/diffusers/backend_diffusers.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/diffusers/backend_diffusers.py] Fails: backend unsupported: /build/extra/grpc/diffusers/backend_diffusers.py
+11:57AM DBG [/build/extra/grpc/exllama/exllama.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/exllama/exllama.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/exllama/exllama.py] Fails: backend unsupported: /build/extra/grpc/exllama/exllama.py
+11:57AM DBG [/build/extra/grpc/vall-e-x/ttsvalle.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/vall-e-x/ttsvalle.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/vall-e-x/ttsvalle.py] Fails: backend unsupported: /build/extra/grpc/vall-e-x/ttsvalle.py
+11:57AM DBG [/build/extra/grpc/vllm/backend_vllm.py] Attempting to load
+11:57AM DBG Loading model /build/extra/grpc/vllm/backend_vllm.py from openllama_7b
+11:57AM DBG [/build/extra/grpc/vllm/backend_vllm.py] Fails: backend unsupported: /build/extra/grpc/vllm/backend_vllm.py
+11:58AM DBG Request received: 
+11:58AM DBG Configuration read: &{PredictionOptions:{Model:openllama_7b Language: N:0 TopP:1 TopK:80 Temperature:0.1 Maxtokens:512 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name: F16:false Threads:4 Debug:true Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:700 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}}
+11:58AM DBG Parameters: &{PredictionOptions:{Model:openllama_7b Language: N:0 TopP:1 TopK:80 Temperature:0.1 Maxtokens:512 Echo:false Batch:0 F16:false IgnoreEOS:false RepeatPenalty:0 Keep:0 MirostatETA:0 MirostatTAU:0 Mirostat:0 FrequencyPenalty:0 TFZ:0 TypicalP:0 Seed:0 NegativePrompt: RopeFreqBase:0 RopeFreqScale:0 NegativePromptScale:0 UseFastTokenizer:false ClipSkip:0 Tokenizer:} Name: F16:false Threads:4 Debug:true Roles:map[] Embeddings:false Backend: TemplateConfig:{Chat: ChatMessage: Completion: Edit: Functions:} PromptStrings:[] InputStrings:[] InputToken:[] functionCallString: functionCallNameString: FunctionsConfig:{DisableNoAction:false NoActionFunctionName: NoActionDescriptionName:} FeatureFlag:map[] LLMConfig:{SystemPrompt: TensorSplit: MainGPU: RMSNormEps:0 NGQA:0 PromptCachePath: PromptCacheAll:false PromptCacheRO:false MirostatETA:0 MirostatTAU:0 Mirostat:0 NGPULayers:0 MMap:false MMlock:false LowVRAM:false Grammar: StopWords:[] Cutstrings:[] TrimSpace:[] ContextSize:700 NUMA:false LoraAdapter: LoraBase: NoMulMatQ:false DraftModel: NDraft:0} AutoGPTQ:{ModelBaseName: Device: Triton:false UseFastTokenizer:false} Diffusers:{PipelineType: SchedulerType: CUDA:false EnableParameters: CFGScale:0 IMG2IMG:false ClipSkip:0 ClipModel: ClipSubFolder:} Step:0 GRPC:{Attempts:0 AttemptsSleepTime:0} VallE:{AudioPath:}}
+11:58AM DBG Prompt (before templating): ###
+Role name: default
+You are Command Line App ShellGPT, a programming and system administration assistant.
+You are managing Linux/Ubuntu 22.04.1 LTS operating system with bash shell.
+Provide only plain text without Markdown formatting.
+Do not show any warnings or information regarding your capabilities.
+If you need to store any data, assume it will be stored in the chat.
+
+Request: hello world 1234
+###
+Answer:
+11:58AM DBG Stream request received
+11:58AM DBG Template failed loading: failed loading a template for openllama_7b
+11:58AM DBG Prompt (after templating): ###
+Role name: default
+You are Command Line App ShellGPT, a programming and system administration assistant.
+You are managing Linux/Ubuntu 22.04.1 LTS operating system with bash shell.
+Provide only plain text without Markdown formatting.
+Do not show any warnings or information regarding your capabilities.
+If you need to store any data, assume it will be stored in the chat.
+
+Request: hello world 1234
+###
+Answer:
+[10.0.2.100]:33108 200 - POST /v1/chat/completions
+11:58AM DBG Loading model 'openllama_7b' greedly from all the available backends: llama, llama-stable, gpt4all, falcon, gptneox, bert-embeddings, falcon-ggml, gptj, gpt2, dolly, mpt, replit, starcoder, bloomz, rwkv, whisper, stablediffusion, piper, /build/extra/grpc/bark/ttsbark.py, /build/extra/grpc/diffusers/backend_diffusers.py, /build/extra/grpc/exllama/exllama.py, /build/extra/grpc/vall-e-x/ttsvalle.py, /build/extra/grpc/vllm/backend_vllm.py, /build/extra/grpc/huggingface/huggingface.py, /build/extra/grpc/autogptq/autogptq.py
+11:58AM DBG [llama] Attempting to load
+11:58AM DBG Loading model llama from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model llama: {backendString:llama model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/llama
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:36105'
+11:58AM DBG Sending chunk: {"object":"chat.completion.chunk","model":"openllama_7b","choices":[{"index":0,"delta":{"role":"assistant","content":""}}],"usage":{"prompt_tokens":0,"completion_tokens":0,"total_tokens":0}}
+
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager1390184215
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:36105: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36105): stderr 2023/09/22 11:58:13 gRPC Server listening at 127.0.0.1:36105
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath: RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36105): stderr create_gpt_params_cuda: loading model /models/openllama_7b
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36105): stderr 
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36105): stderr CUDA error 35 at /build/go-llama/llama.cpp/ggml-cuda.cu:5509: CUDA driver version is insufficient for CUDA runtime version
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36105): stderr current device: -1147010856
+11:58AM DBG [llama] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:58AM DBG [llama-stable] Attempting to load
+11:58AM DBG Loading model llama-stable from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model llama-stable: {backendString:llama-stable model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/llama-stable
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:33289'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager3565173869
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:33289: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:33289): stderr 2023/09/22 11:58:15 gRPC Server listening at 127.0.0.1:33289
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath: RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:33289): stderr create_gpt_params: loading model /models/openllama_7b
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:33289): stderr CUDA error 35 at /build/go-llama-stable/llama.cpp/ggml-cuda.cu:4235: CUDA driver version is insufficient for CUDA runtime version
+11:58AM DBG [llama-stable] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:58AM DBG [gpt4all] Attempting to load
+11:58AM DBG Loading model gpt4all from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model gpt4all: {backendString:gpt4all model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gpt4all
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:41355'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager3307325648
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:41355: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:41355): stderr 2023/09/22 11:58:17 gRPC Server listening at 127.0.0.1:41355
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:41355): stderr load_model: error 'No such file or directory'
+11:58AM DBG [gpt4all] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [falcon] Attempting to load
+11:58AM DBG Loading model falcon from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model falcon: {backendString:falcon model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/falcon
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:34879'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2583979678
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:34879: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:34879): stderr 2023/09/22 11:58:19 gRPC Server listening at 127.0.0.1:34879
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:34879): stderr CUDA error 35 at /build/go-ggllm/ggllm.cpp/ggml-cuda.cu:1878: CUDA driver version is insufficient for CUDA runtime version
+11:58AM DBG [falcon] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:58AM DBG [gptneox] Attempting to load
+11:58AM DBG Loading model gptneox from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model gptneox: {backendString:gptneox model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gptneox
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:42649'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2097073436
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:42649: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42649): stderr 2023/09/22 11:58:21 gRPC Server listening at 127.0.0.1:42649
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42649): stderr gpt_neox_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42649): stderr gpt_neox_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [gptneox] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [bert-embeddings] Attempting to load
+11:58AM DBG Loading model bert-embeddings from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model bert-embeddings: {backendString:bert-embeddings model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/bert-embeddings
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:38349'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2996541447
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:38349: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38349): stderr 2023/09/22 11:58:23 gRPC Server listening at 127.0.0.1:38349
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38349): stderr bert_load_from_file: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38349): stderr bert_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [bert-embeddings] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [falcon-ggml] Attempting to load
+11:58AM DBG Loading model falcon-ggml from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model falcon-ggml: {backendString:falcon-ggml model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/falcon-ggml
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:39409'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2625329987
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:39409: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39409): stderr 2023/09/22 11:58:25 gRPC Server listening at 127.0.0.1:39409
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39409): stderr falcon_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39409): stderr falcon_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [falcon-ggml] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [gptj] Attempting to load
+11:58AM DBG Loading model gptj from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model gptj: {backendString:gptj model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gptj
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:43077'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2620935781
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:43077: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:43077): stderr 2023/09/22 11:58:27 gRPC Server listening at 127.0.0.1:43077
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG [gptj] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [gpt2] Attempting to load
+11:58AM DBG Loading model gpt2 from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model gpt2: {backendString:gpt2 model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/gpt2
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:34865'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager904890035
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:34865: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:43077): stderr gptj_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:43077): stderr gptj_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:34865): stderr 2023/09/22 11:58:29 gRPC Server listening at 127.0.0.1:34865
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:34865): stderr gpt2_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:34865): stderr gpt2_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [gpt2] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [dolly] Attempting to load
+11:58AM DBG Loading model dolly from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model dolly: {backendString:dolly model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/dolly
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:37617'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager4294169846
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:37617: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:37617): stderr 2023/09/22 11:58:31 gRPC Server listening at 127.0.0.1:37617
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:37617): stderr dollyv2_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:37617): stderr dolly_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [dolly] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [mpt] Attempting to load
+11:58AM DBG Loading model mpt from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model mpt: {backendString:mpt model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/mpt
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:41745'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager810294192
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:41745: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:41745): stderr 2023/09/22 11:58:33 gRPC Server listening at 127.0.0.1:41745
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:41745): stderr mpt_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:41745): stderr mpt_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [mpt] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [replit] Attempting to load
+11:58AM DBG Loading model replit from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model replit: {backendString:replit model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/replit
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:38203'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2661486527
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:38203: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38203): stderr 2023/09/22 11:58:35 gRPC Server listening at 127.0.0.1:38203
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38203): stderr replit_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38203): stderr replit_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [replit] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [starcoder] Attempting to load
+11:58AM DBG Loading model starcoder from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model starcoder: {backendString:starcoder model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/starcoder
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:38767'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager1344835329
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:38767: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38767): stderr 2023/09/22 11:58:37 gRPC Server listening at 127.0.0.1:38767
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38767): stderr starcoder_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:38767): stderr starcoder_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [starcoder] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [bloomz] Attempting to load
+11:58AM DBG Loading model bloomz from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model bloomz: {backendString:bloomz model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/bloomz
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:42679'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2854671941
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:42679: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42679): stderr 2023/09/22 11:58:39 gRPC Server listening at 127.0.0.1:42679
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42679): stderr bloom_model_load: failed to open '/models/openllama_7b'
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:42679): stderr bloomz_bootstrap: failed to load model from '/models/openllama_7b'
+11:58AM DBG [bloomz] Fails: could not load model: rpc error: code = Unknown desc = failed loading model
+11:58AM DBG [rwkv] Attempting to load
+11:58AM DBG Loading model rwkv from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model rwkv: {backendString:rwkv model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/rwkv
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:39491'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager3677637600
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:39491: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 2023/09/22 11:58:41 gRPC Server listening at 127.0.0.1:39491
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr Failed to open file /models/openllama_7b
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr /build/go-rwkv/rwkv.cpp/rwkv.cpp:1129: file.file
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr /build/go-rwkv/rwkv.cpp/rwkv.cpp:1266: rwkv_instance_from_file(file_path, *instance.get())
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr panic: runtime error: invalid memory address or nil pointer dereference
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x52376e]
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr goroutine 18 [running]:
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/donomii/go-rwkv%2ecpp.LoadFiles.(*Context).GetStateBufferElementCount.func1(0xc000116048?)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/go-rwkv/wrapper.go:63 +0xe
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/donomii/go-rwkv%2ecpp.(*Context).GetStateBufferElementCount(...)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/go-rwkv/wrapper.go:63
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/donomii/go-rwkv%2ecpp.LoadFiles({0xc000116048?, 0xc000116050?}, {0xc00015e030, 0x23}, 0x1300c0?)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/go-rwkv/wrapper.go:131 +0x52
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/go-skynet/LocalAI/pkg/backend/llm/rwkv.(*LLM).Load(0xc000034cd0, 0xc000102340)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/pkg/backend/llm/rwkv/rwkv.go:31 +0xee
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/go-skynet/LocalAI/pkg/grpc.(*server).LoadModel(0xc000034d90, {0xc000102340?, 0x5261a6?}, 0x0?)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/pkg/grpc/server.go:50 +0xe6
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr github.com/go-skynet/LocalAI/pkg/grpc/proto._Backend_LoadModel_Handler({0x917440?, 0xc000034d90}, {0x9fd870, 0xc00011c270}, 0xc0001120e0, 0x0)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/build/pkg/grpc/proto/backend_grpc.pb.go:264 +0x169
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr google.golang.org/grpc.(*Server).processUnaryRPC(0xc0001e61e0, {0xa009f8, 0xc0001e1520}, 0xc00012e000, 0xc0001eec90, 0xcf2070, 0x0)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:1376 +0xde7
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr google.golang.org/grpc.(*Server).handleStream(0xc0001e61e0, {0xa009f8, 0xc0001e1520}, 0xc00012e000, 0x0)
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:1753 +0x9e7
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr google.golang.org/grpc.(*Server).serveStreams.func1.1()
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:998 +0x8d
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr created by google.golang.org/grpc.(*Server).serveStreams.func1 in goroutine 14
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39491): stderr 	/go/pkg/mod/google.golang.org/grpc@v1.58.1/server.go:996 +0x165
+11:58AM DBG [rwkv] Fails: could not load model: rpc error: code = Unavailable desc = error reading from server: EOF
+11:58AM DBG [whisper] Attempting to load
+11:58AM DBG Loading model whisper from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model whisper: {backendString:whisper model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/whisper
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:36195'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager83133190
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:36195: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:36195): stderr 2023/09/22 11:58:43 gRPC Server listening at 127.0.0.1:36195
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG [whisper] Fails: could not load model: rpc error: code = Unknown desc = stat /models/openllama_7b: no such file or directory
+11:58AM DBG [stablediffusion] Attempting to load
+11:58AM DBG Loading model stablediffusion from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model stablediffusion: {backendString:stablediffusion model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/stablediffusion
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:39305'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager3493561159
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:39305: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:39305): stderr 2023/09/22 11:58:45 gRPC Server listening at 127.0.0.1:39305
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/gpt4all RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG [stablediffusion] Fails: could not load model: rpc error: code = Unknown desc = stat /models/openllama_7b: no such file or directory
+11:58AM DBG [piper] Attempting to load
+11:58AM DBG Loading model piper from openllama_7b
+11:58AM DBG Loading model in memory from file: /models/openllama_7b
+11:58AM DBG Loading GRPC Model piper: {backendString:piper model:openllama_7b threads:4 assetDir:/tmp/localai/backend_data context:{emptyCtx:{}} gRPCOptions:0xc000816000 externalBackends:map[autogptq:/build/extra/grpc/autogptq/autogptq.py bark:/build/extra/grpc/bark/ttsbark.py diffusers:/build/extra/grpc/diffusers/backend_diffusers.py exllama:/build/extra/grpc/exllama/exllama.py huggingface-embeddings:/build/extra/grpc/huggingface/huggingface.py vall-e-x:/build/extra/grpc/vall-e-x/ttsvalle.py vllm:/build/extra/grpc/vllm/backend_vllm.py] grpcAttempts:20 grpcAttemptsDelay:2 singleActiveBackend:false}
+11:58AM DBG Loading GRPC Process: /tmp/localai/backend_data/backend-assets/grpc/piper
+11:58AM DBG GRPC Service for openllama_7b will be running at: '127.0.0.1:43417'
+11:58AM DBG GRPC Service state dir: /tmp/go-processmanager2438859290
+11:58AM DBG GRPC Service Started
+rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 127.0.0.1:43417: connect: connection refused"
+11:58AM DBG GRPC(openllama_7b-127.0.0.1:43417): stderr 2023/09/22 11:58:47 gRPC Server listening at 127.0.0.1:43417
+11:58AM DBG GRPC Service Ready
+11:58AM DBG GRPC: Loading model with options: {state:{NoUnkeyedLiterals:{} DoNotCompare:[] DoNotCopy:[] atomicMessageInfo:<nil>} sizeCache:0 unknownFields:[] Model:openllama_7b ContextSize:700 Seed:0 NBatch:512 F16Memory:false MLock:false MMap:false VocabOnly:false LowVRAM:false Embeddings:false NUMA:false NGPULayers:0 MainGPU: TensorSplit: Threads:4 LibrarySearchPath:/tmp/localai/backend_data/backend-assets/espeak-ng-data RopeFreqBase:0 RopeFreqScale:0 RMSNormEps:0 NGQA:0 ModelFile:/models/openllama_7b Device: UseTriton:false ModelBaseName: UseFastTokenizer:false PipelineType: SchedulerType: CUDA:false CFGScale:0 IMG2IMG:false CLIPModel: CLIPSubfolder: CLIPSkip:0 Tokenizer: LoraBase: LoraAdapter: NoMulMatQ:false DraftModel: AudioPath:}
+11:58AM DBG [piper] Fails: could not load model: rpc error: code = Unknown desc = unsupported model type /models/openllama_7b (should end with .onnx)
+11:58AM DBG [/build/extra/grpc/bark/ttsbark.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/bark/ttsbark.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/bark/ttsbark.py] Fails: backend unsupported: /build/extra/grpc/bark/ttsbark.py
+11:58AM DBG [/build/extra/grpc/diffusers/backend_diffusers.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/diffusers/backend_diffusers.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/diffusers/backend_diffusers.py] Fails: backend unsupported: /build/extra/grpc/diffusers/backend_diffusers.py
+11:58AM DBG [/build/extra/grpc/exllama/exllama.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/exllama/exllama.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/exllama/exllama.py] Fails: backend unsupported: /build/extra/grpc/exllama/exllama.py
+11:58AM DBG [/build/extra/grpc/vall-e-x/ttsvalle.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/vall-e-x/ttsvalle.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/vall-e-x/ttsvalle.py] Fails: backend unsupported: /build/extra/grpc/vall-e-x/ttsvalle.py
+11:58AM DBG [/build/extra/grpc/vllm/backend_vllm.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/vllm/backend_vllm.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/vllm/backend_vllm.py] Fails: backend unsupported: /build/extra/grpc/vllm/backend_vllm.py
+11:58AM DBG [/build/extra/grpc/huggingface/huggingface.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/huggingface/huggingface.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/huggingface/huggingface.py] Fails: backend unsupported: /build/extra/grpc/huggingface/huggingface.py
+11:58AM DBG [/build/extra/grpc/autogptq/autogptq.py] Attempting to load
+11:58AM DBG Loading model /build/extra/grpc/autogptq/autogptq.py from openllama_7b
+11:58AM DBG [/build/extra/grpc/autogptq/autogptq.py] Fails: backend unsupported: /build/extra/grpc/autogptq/autogptq.py
