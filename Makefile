@@ -370,6 +370,8 @@ backend-assets/grpc:
 	mkdir -p backend-assets/grpc
 
 backend-assets/grpc/falcon: backend-assets/grpc go-ggllm/libggllm.a
+
+
 	CGO_LDFLAGS="$(CGO_LDFLAGS)" C_INCLUDE_PATH=$(shell pwd)/go-ggllm LIBRARY_PATH=$(shell pwd)/go-ggllm \
 	$(GOCMD) build -ldflags "$(LD_FLAGS)" -tags "$(GO_TAGS)" -o backend-assets/grpc/falcon ./cmd/grpc/falcon/
 
